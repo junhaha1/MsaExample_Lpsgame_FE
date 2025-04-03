@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
-import ApiClient from "../services/ApiClient";
+import React, { use, useEffect, useState } from "react";
+import RpsApiClient from "../services/RpsApiClient";
 import LastAttemptsComponent from "./LastAttemptsComponent";
+import StatsComponent from "./StatsComponent";
 
 const ChallengeComponent = () => {
   const [userChoice, setUserChoice] = useState("");
   const [user, setUser] = useState("");
   const [message, setMessage] = useState("");
   const [lastAttempts, setLastAttempts] = useState([]);
+  const [userId, setUserId] = useState('');
+  const [actionFlag, setActionFlag] = useState(1);
 
   let handleChangeName = (event) => {
     setUser(event.target.value);
@@ -50,9 +53,13 @@ const ChallengeComponent = () => {
   };
 
   let handleSubmitResult = (event) => {
-    ApiClient.sendChoice(user, userChoice).then((res) => {
+    RpsApiClient.sendChoice(user, userChoice).then((res) => {
       if (res.ok) {
         res.json().then((json) => {
+          
+          setUserId(json.userId);
+          setActionFlag(actionFlag * -1); //플래그로 사용하기 위해 부호를 계속 바꾸어 줌. 
+
           if (json.outcome === "승") {
             updateMessage("이겼습니다!");
           } else if (json.outcome === "패") {
@@ -70,7 +77,7 @@ const ChallengeComponent = () => {
   };
 
   let updateLastAttempts = (userAlias) => {
-    ApiClient.getAttempts(userAlias).then((res) => {
+    RpsApiClient.getAttempts(userAlias).then((res) => {
       if (res.ok) {
         let attempts = [];
         res.json().then((data) => {
@@ -138,6 +145,7 @@ const ChallengeComponent = () => {
         {lastAttempts.length > 0 && (
           <LastAttemptsComponent lastAttempts={lastAttempts} />
         )}
+        <StatsComponent id={userId} flag={actionFlag}/>
       </div>
     </div>
   );
