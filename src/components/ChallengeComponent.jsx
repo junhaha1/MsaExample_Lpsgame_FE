@@ -123,7 +123,6 @@ const ChallengeComponent = () => {
           <div>
             <h1>가위 바위 보 게임</h1>
             <h2>오늘의 도전</h2>
-            <p>
               <div
                 style={{
                   display: "flex",
@@ -186,7 +185,6 @@ const ChallengeComponent = () => {
                   </InputGroup>
                 </div>
               </div>
-            </p>
             <hr />
             <div style={resultStyle}>
               <h3>

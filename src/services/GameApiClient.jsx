@@ -1,5 +1,5 @@
 class GameApiClient {
-  static SEVER_URL = "http://localhost:8081";
+  static SEVER_URL = "http://localhost:8000";
   static GET_READERBOARD = "/leaders";
   static GET_USERS_BY_IDS = "/stats";
 
