@@ -1,8 +1,9 @@
 import React from "react";
+import {Table} from 'react-bootstrap';
 
 function LastAttemptsComponent(props) {
   return (
-    <table>
+    <Table>
       <thead>
         <tr>
           <th>답안 ID</th>
@@ -24,7 +25,7 @@ function LastAttemptsComponent(props) {
           </tr>
         ))}
       </tbody>
-    </table>
+    </Table>
   );
 }
 
